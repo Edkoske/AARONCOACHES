@@ -46,6 +46,7 @@
       if (!entry.isIntersecting) return;
       const el = entry.target;
       const target = +el.dataset.target;
+      const plus = el.dataset.plus === 'true';
       const duration = 2000;
       let startTime = null;
       counterObs.unobserve(el);
@@ -55,7 +56,7 @@
         const progress = easeOutQuart(Math.min((ts - startTime) / duration, 1));
         el.textContent = Math.floor(progress * target);
         if (progress < 1) requestAnimationFrame(step);
-        else el.textContent = target;
+        else el.textContent = target + (plus ? '+' : '');
       }
       requestAnimationFrame(step);
     });
